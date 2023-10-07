@@ -21,10 +21,15 @@ public class LoginPage extends TestBase {
     @Step("Вход в систему")
     public void loginVoid() {
         getUrl();
-        loginInput.shouldBe(Condition.visible);
-        actions().moveToElement(loginInput).click().sendKeys(login).perform();
-        actions().moveToElement(passwordInput).click().sendKeys(password).perform();
-        actions().moveToElement(loginButton).click().perform();
+        actions()
+                .moveToElement(loginInput)
+                .click().sendKeys(login)
+                .moveToElement(passwordInput)
+                .click()
+                .sendKeys(password)
+                .moveToElement(loginButton)
+                .click()
+                .perform();
     }
     @Step("Проверка Элемента")
     public void assertLoginSuccess() {

@@ -6,7 +6,8 @@ import ui.pages.LoginPage;
 
 import static io.qameta.allure.SeverityLevel.CRITICAL;
 
-public class LoginTest extends LoginPage {
+public class
+LoginTest extends LoginPage {
         @Epic("Проверка сайта MAXIMA")
         @Feature("Проверка функицонала страниц")
         @Test
