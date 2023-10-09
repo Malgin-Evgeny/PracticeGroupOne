@@ -1,4 +1,4 @@
-package api;
+package api.testBase.token;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
