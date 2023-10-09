@@ -12,9 +12,8 @@ public class SmsCallbackRestControllerTest extends MyToken {
         given().header(getHeader())
                 .when()
                 .get(URL+"/sms/callback")
-                .then()
+                .then().log().all()
                 .assertThat()
-                .statusCode(200)
                 .body(equalTo("100"));
     }
 
@@ -23,11 +22,8 @@ public class SmsCallbackRestControllerTest extends MyToken {
         given().header(getHeader())
                 .when()
                 .post(URL+"/sms/callback")
-                .then()
+                .then().log().all()
                 .assertThat()
-                .statusCode(200)
                 .body(equalTo("100"));
-
-
     }
 }

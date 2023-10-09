@@ -3,6 +3,7 @@ package api.testBase.token;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
 import static io.restassured.RestAssured.given;
 import static api.testBase.Specifications.*;
@@ -30,7 +31,7 @@ public class MyToken {
         return new Header("Authorization", "Bearer " + token);
     }
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         installSpecification(requestSpec(URL));
         getToken();
