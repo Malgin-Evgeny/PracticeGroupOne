@@ -1,22 +1,29 @@
 package api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SuccessReg {
-    private String token;
-    private Integer expiredAt;
+    private TokenDetails accessToken;
+    private TokenDetails refreshToken;
 
     public SuccessReg() {
     }
 
-    public SuccessReg(String token, Integer expiredAt) {
-        this.token = token;
-        this.expiredAt = expiredAt;
+    @JsonProperty("accessToken")
+    public TokenDetails getAccessToken() {
+        return accessToken;
     }
 
-    public String getToken() {
-        return token;
+    public void setAccessToken(TokenDetails accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public Integer getExpiredAt() {
-        return expiredAt;
+    @JsonProperty("refreshToken")
+    public TokenDetails getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(TokenDetails refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
