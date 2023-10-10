@@ -1,11 +1,12 @@
-package api.tests.usersRestController;
+package api.tests;
 
 import api.testBase.token.MyToken;
 
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-import static api.testBase.changeUserPackage.ChangeUserVoidClass.getRequestBody;
+import static api.testBase.inBodyClasses.ArchiveBody.getRequestArchiveBody;
+import static api.testBase.inBodyClasses.ChangeUserVoidClass.getRequestBody;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
@@ -36,7 +37,7 @@ public class UsersRestControllerTest extends MyToken {
                 .then()
                 .statusCode(200)
                 .body("id", equalTo(315))
-                .body("firstName",equalTo("Петр"));
+                .body("firstName", equalTo("Петр"));
     }
 
     @Test
@@ -49,8 +50,7 @@ public class UsersRestControllerTest extends MyToken {
                 .body("$", hasKey("login"))
                 .body("$", hasKey("password"))
                 .body("login", Matchers.not(emptyString()))
-                .body("password", Matchers.not(emptyString()))
-                .log().all();
+                .body("password", Matchers.not(emptyString()));
     }
 
     @Test
@@ -62,4 +62,26 @@ public class UsersRestControllerTest extends MyToken {
                 .statusCode(200)
                 .log().all();
     }
+
+    @Test
+    public void postUserBanTest() {
+        given()
+                .header(getHeader())
+                .post(URL + "/users/315/ban")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void postUserArchiveTest() {
+        given()
+                .header(getHeader())
+                .body(getRequestArchiveBody())
+                .header("Content-Type", "application/json")
+                .post(URL + "/users/315/archive")
+                .then()
+                .statusCode(200);
+    }
+
+
 }

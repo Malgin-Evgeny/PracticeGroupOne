@@ -1,4 +1,4 @@
-package api.testBase.changeUserPackage;
+package api.testBase.inBodyClasses;
 
 public class ChangeUserConstructor {
     private Integer id;

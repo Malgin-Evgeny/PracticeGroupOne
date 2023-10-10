@@ -1,4 +1,4 @@
-package api.tests.smsCallbackRestController;
+package api.tests;
 
 import api.testBase.token.MyToken;
 import org.testng.annotations.Test;
