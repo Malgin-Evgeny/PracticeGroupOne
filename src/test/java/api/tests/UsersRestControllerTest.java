@@ -82,6 +82,32 @@ public class UsersRestControllerTest extends MyToken {
                 .then()
                 .statusCode(200);
     }
+    @Test
+    public void postUserChangeActiveTest() {
+        given()
+                .header(getHeader())
+                .body("{\n" +
+                        "  \"ids\": [\n" +
+                        "    1,\n" +
+                        "    2,\n" +
+                        "    3\n" +
+                        "  ]\n" +
+                        "}")
+                .header("Content-Type", "application/json")
+                .post(URL + "/users/change-active")
+                .then().assertThat().statusCode(200);
 
+    }
+    @Test
+    public void getInfoForUserID() {
+        given()
+                .header(getHeader())
+                .get(URL + "/users/315")
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(315))
+                .body("firstName", equalTo("Петр"))
+                .log().all();
+    }
 
 }
