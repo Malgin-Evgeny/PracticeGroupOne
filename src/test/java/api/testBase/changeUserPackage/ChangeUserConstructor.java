@@ -1,9 +1,6 @@
-package api.tests.usersRestController;
+package api.testBase.changeUserPackage;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public class ChangeUser {
+public class ChangeUserConstructor {
     private Integer id;
     private String firstName;
     private String lastName;
@@ -43,7 +40,48 @@ public class ChangeUser {
     private String kpp;
     private String ogrn;
 
-    public ChangeUser() {
+    public ChangeUserConstructor() {
+    }
+
+    public ChangeUserConstructor(Integer id, String firstName, String lastName, String patronymic, String phone, String login, String state, String birthDate, String email, String center, String parentName, String parentPhone, String name, String address, String bankName, String ks, String rs, String organizationType, String index, String region, String street, String building, String flat, String contractNumber, String rate, Integer royalty, Integer freeAccountsNumber, Integer additionalAccountCost, String subscriptionType, String source, String sourceInfo, String gender, String city, String country, String bik, String inn, String kpp, String ogrn) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+        this.phone = phone;
+        this.login = login;
+        this.state = state;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.center = center;
+        this.parentName = parentName;
+        this.parentPhone = parentPhone;
+        this.name = name;
+        this.address = address;
+        this.bankName = bankName;
+        this.ks = ks;
+        this.rs = rs;
+        this.organizationType = organizationType;
+        this.index = index;
+        this.region = region;
+        this.street = street;
+        this.building = building;
+        this.flat = flat;
+        this.contractNumber = contractNumber;
+        this.rate = rate;
+        this.royalty = royalty;
+        this.freeAccountsNumber = freeAccountsNumber;
+        this.additionalAccountCost = additionalAccountCost;
+        this.subscriptionType = subscriptionType;
+        this.source = source;
+        this.sourceInfo = sourceInfo;
+        this.gender = gender;
+        this.city = city;
+        this.country = country;
+        this.bik = bik;
+        this.inn = inn;
+        this.kpp = kpp;
+        this.ogrn = ogrn;
     }
 
     public Integer getId() {
@@ -349,6 +387,7 @@ public class ChangeUser {
     public void setOgrn(String ogrn) {
         this.ogrn = ogrn;
     }
+
 }
 
 
