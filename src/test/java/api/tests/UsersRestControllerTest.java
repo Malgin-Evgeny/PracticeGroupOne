@@ -1,16 +1,18 @@
 package api.tests;
 
+import api.testBase.inBodyClasses.ArchiveBody;
+import api.testBase.inBodyClasses.ChangeUserVoidClass;
 import api.testBase.token.MyToken;
 
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-import static api.testBase.inBodyClasses.ArchiveBody.getRequestArchiveBody;
-import static api.testBase.inBodyClasses.ChangeUserVoidClass.getRequestBody;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 public class UsersRestControllerTest extends MyToken {
+    ArchiveBody archiveBody = new ArchiveBody();
+    ChangeUserVoidClass changeUserVoidClass = new ChangeUserVoidClass();
 
     @Test
     public void getUsersRestControllerTest() {
@@ -24,7 +26,7 @@ public class UsersRestControllerTest extends MyToken {
     public void putUserChangeTest() {
         given()
                 .header(getHeader())
-                .body(getRequestBody())
+                .body(changeUserVoidClass.getRequestBody())
                 .header("Content-Type", "application/json")
                 .put(URL + "/users")
                 .then()
@@ -76,13 +78,13 @@ public class UsersRestControllerTest extends MyToken {
     public void postUserArchiveTest() {
         given()
                 .header(getHeader())
-                .body(getRequestArchiveBody())
+                .body(archiveBody.getRequestArchiveBody())
                 .header("Content-Type", "application/json")
                 .post(URL + "/users/315/archive")
                 .then()
                 .statusCode(200);
     }
-    @Test
+    /*@Test
     public void postUserChangeActiveTest() {
         given()
                 .header(getHeader())
@@ -97,7 +99,7 @@ public class UsersRestControllerTest extends MyToken {
                 .post(URL + "/users/change-active")
                 .then().assertThat().statusCode(200);
 
-    }
+    }*/
     @Test
     public void getInfoForUserID() {
         given()

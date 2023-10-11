@@ -1,7 +1,9 @@
 package api.testBase.inBodyClasses;
 
 public class ChangeUserVoidClass {
-    private static String requestBody = "{\n" +
+    public ChangeUserVoidClass() {
+    }
+    private String requestBody = "{\n" +
             "  \"id\": 315,\n" +
             "  \"firstName\": \"Петр\",\n" +
             "  \"lastName\": \"петечка\",\n" +
@@ -42,13 +44,12 @@ public class ChangeUserVoidClass {
             "  \"ogrn\": \"string\"\n" +
             "}";
 
-    public ChangeUserVoidClass() {
-    }
-    public static String getRequestBody() {
+
+    public  String getRequestBody() {
         return requestBody;
     }
 
-    private static String expextedBody = "{\n" +
+    private  String expextedBody = "{\n" +
             "    \"id\": 315,\n" +
             "    \"state\": \"CONFIRMED\",\n" +
             "    \"role\": \"STUDENT\",\n" +
@@ -118,7 +119,7 @@ public class ChangeUserVoidClass {
             "    \"ogrn\": null\n" +
             "}";
 
-    public static String getExpextedBody() {
+    public String getExpextedBody() {
         return expextedBody;
     }
 }

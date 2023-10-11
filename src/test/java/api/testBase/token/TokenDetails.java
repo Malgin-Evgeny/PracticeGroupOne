@@ -8,7 +8,7 @@ public class TokenDetails {
 
     public TokenDetails() {
     }
-@JsonProperty("token")
+    @JsonProperty("token")
     public String getToken() {
         return token;
     }
