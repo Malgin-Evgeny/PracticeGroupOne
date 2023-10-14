@@ -4,13 +4,13 @@ public class ChangeUserVoidClass {
     public ChangeUserVoidClass() {
     }
     private String requestBody = "{\n" +
-            "  \"id\": 315,\n" +
-            "  \"firstName\": \"Петр\",\n" +
+            "  \"id\": 101,\n" +
+            "  \"firstName\": \"Петруха\",\n" +
             "  \"lastName\": \"петечка\",\n" +
             "  \"patronymic\": \"Петрович\",\n" +
             "  \"phone\": \"8-800-555-35-35\",\n" +
             "  \"login\": \"tripleP\",\n" +
-            "  \"state\": \"CONFIRMED\",\n" +
+            "  \"state\": \"NOT_CONFIRMED\",\n" +
             "  \"birthDate\": \"2023-10-10\",\n" +
             "  \"email\": \"petrov@mail.com\",\n" +
             "  \"center\": \"Organization Corp2\",\n" +

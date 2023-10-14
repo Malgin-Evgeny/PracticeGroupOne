@@ -12,13 +12,13 @@ public class PageObject {
     private final SelenideElement loginInput = $x("//input[@type='text' and contains(@class, 'MuiInputBase-input')]");
     private final SelenideElement passwordInput = $x("//input[@type='password']");
     private final SelenideElement loginButton = $x("//button[contains(@class, 'MuiButton-containedPrimary') or contains(text(), 'Войти')]");
+    private final SelenideElement logoutButton = $x("//*[@data-testid=\"ExitToAppIcon\"]");
     private final String login = "aqa_01";
     private final String password = "783891";
     private final SelenideElement welcome = $x("//*[@class=\"TitleBase_title-base__n1Oxe\"]");
 
-
     @Step("Проверка видимости поля ввода логина")
-    public void setLoginInput() {
+    public void checkLoginInput() {
         loginInput.shouldBe(Condition.visible);
         Assert.assertTrue(loginInput.isDisplayed());
     }
@@ -30,7 +30,7 @@ public class PageObject {
     }
 
     @Step("Проверка видимости поля ввода пароля")
-    public void setPasswordInput() {
+    public void checkPasswordInput() {
         passwordInput.shouldBe(Condition.visible);
         Assert.assertTrue(passwordInput.isDisplayed());
     }
@@ -42,7 +42,7 @@ public class PageObject {
     }
 
     @Step("Проверка видимости и нажатие на кнопку логин")
-    public void setLoginButton() {
+    public void checkLoginButton() {
         loginButton.shouldBe(Condition.visible);
         Assert.assertTrue(loginButton.isDisplayed());
         $(loginButton).click();
@@ -52,6 +52,17 @@ public class PageObject {
     public void assertLoginSuccess() {
         welcome.shouldBe(Condition.visible);
         Assert.assertTrue(welcome.isDisplayed());
+    }
+
+    @Step("Проверка видимости кнопки логаут")
+    public void checkLogoutButton() {
+        logoutButton.shouldBe(Condition.visible);
+        Assert.assertTrue(logoutButton.isDisplayed());
+    }
+
+    @Step("Нажать на логин")
+    public void clickLogout() {
+        logoutButton.click();
     }
 }
 

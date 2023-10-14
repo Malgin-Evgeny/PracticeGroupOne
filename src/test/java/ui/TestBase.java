@@ -9,38 +9,49 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class TestBase extends PageObject {
-    public final String URL = "https://dev.learn.maxima.school/";
+    final String URL = "https://dev.learn.maxima.school/";
     private final SelenideElement loginForm = $x("//div[@class=\"LoginForm_login-form__header__Ad3b9\"]");
+
     @BeforeMethod
-    @Step("Открыть сайт")
+    @Step("Открытие сайта и логин")
     public void openBrowserWithUrl() {
+        Configuration.browser = Browsers.CHROME;
         open(URL);
         refresh();
         loginMethod();
         assertLoginSuccess();
-
     }
+
     @AfterMethod
-    public void closedBrowser(){
+    @Step("закрыть браузер")
+    public void closedBrowser() {
         closeWebDriver();
     }
-    //Перезагрузка страницы если элемент невидим
-    public void refresh (){
+
+    @Step("Перезагрузка страницы если элемент невидим")
+    public void refresh() {
+        loginForm.shouldBe(Condition.visible);
         if (loginForm.exists()) {
             getWebDriver().manage().window().maximize();
         } else {
             Selenide.refresh();
-            getWebDriver().manage().window().fullscreen();
+            getWebDriver().manage().window().maximize();
         }
     }
 
     @Step("Вход в систему")
     public void loginMethod() {
-        setLoginInput();
+        checkLoginInput();
         sendLogin();
-        setPasswordInput();
+        checkPasswordInput();
         sendPassword();
-        setLoginButton();
+        checkLoginButton();
+    }
+
+    @Step("Разлогин")
+    public void logout() {
+        checkLogoutButton();
+        clickLogout();
     }
 }
 
