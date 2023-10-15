@@ -1,3 +1,7 @@
+/** Запуск скрипта производится с использованием предустановленной на компьютере Java JDK через командную строку
+ * 1. команда javac FolderChecker.java
+ * 2. команда java FolderChecker **/
+
 import java.io.File;
 
 public class FolderChecker {
