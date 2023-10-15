@@ -51,7 +51,7 @@ public class LoginPage extends TestBase {
         clickForgotPassword();
         findLineAndClickToInputEmail();
         sendEmail();
-        findLineAndClickToInputEmail();
+        findAndClickToRecoverPassword();
     }
 
     @Step("Проверка видимости кнопки смены цвета темы сайта")
