@@ -1,6 +1,7 @@
 package ui;
 
 import com.codeborne.selenide.*;
+
 import io.qameta.allure.Step;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,7 +16,7 @@ public class TestBase extends PageObject {
     @BeforeMethod
     @Step("Открытие сайта и логин")
     public void openBrowserWithUrl() {
-        Configuration.browser = Browsers.CHROME;
+        Configuration.browserSize = "maximized";
         open(URL);
         refresh();
         loginMethod();
@@ -54,4 +55,3 @@ public class TestBase extends PageObject {
         clickLogout();
     }
 }
-
