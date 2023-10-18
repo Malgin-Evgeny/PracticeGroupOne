@@ -111,5 +111,4 @@ public class UsersRestControllerTest extends MyToken {
                 .body("firstName", equalTo("Петр"))
                 .log().all();
     }
-
 }

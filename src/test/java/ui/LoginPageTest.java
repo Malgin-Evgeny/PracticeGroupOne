@@ -6,16 +6,19 @@ import ui.pages.LoginPage;
 
 import static io.qameta.allure.SeverityLevel.NORMAL;
 
-public class LoginPageTest extends LoginPage {
+public class LoginPageTest extends BaseTest {
+
+    private LoginPage loginPage = new LoginPage();
+
     @Test
     @Epic("Проверка сайта MAXIMA")
     @Feature("Проверка функицонала страниц")
     @Story("Проверка смены цвета темы")
     @Description("Тема")
     @Severity(NORMAL)
-    public void loginPageColorTest() {
-        logout();
-        changeColor();
+    public void checkChangeColorTest() {
+        loginPage.loginMethod();
+        loginPage.assertLoginSuccess();
     }
 
     @Test
@@ -24,9 +27,10 @@ public class LoginPageTest extends LoginPage {
     @Story("Проверка смены языка страницы")
     @Description("Тема")
     @Severity(NORMAL)
-    public void loginPageChangeLanguageTest() {
-        logout();
-        changeLanguage();
+    public void checkChangeLanguageTest() {
+        loginPage.loginMethod();
+        loginPage.logout();
+        loginPage.changeLanguage();
     }
 
     @Test
@@ -36,8 +40,7 @@ public class LoginPageTest extends LoginPage {
     @Description("Тема")
     @Severity(NORMAL)
     public void recoverPasswordTest() {
-        logout();
-        recoverPassword();
-        loginMethod();
+        loginPage.recoverPassword();
+        loginPage.loginMethod();
     }
 }

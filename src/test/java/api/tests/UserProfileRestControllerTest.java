@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -66,7 +65,6 @@ public class UserProfileRestControllerTest extends MyToken {
         teachers.setLanguages(languages);
         teachers.setSubjects(subjects);
         teachers.setPhoto(photo);
-
         return teachers;
     }
 

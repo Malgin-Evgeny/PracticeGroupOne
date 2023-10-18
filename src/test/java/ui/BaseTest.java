@@ -9,18 +9,16 @@ import org.testng.annotations.BeforeMethod;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class TestBase extends PageObject {
+public class BaseTest {
     final String URL = "https://dev.learn.maxima.school/";
     private final SelenideElement loginForm = $x("//div[@class=\"LoginForm_login-form__header__Ad3b9\"]");
 
     @BeforeMethod
     @Step("Открытие сайта и логин")
     public void openBrowserWithUrl() {
-        Configuration.browserSize = "maximized";
         open(URL);
+        Configuration.browserSize = "maximized";
         refresh();
-        loginMethod();
-        assertLoginSuccess();
     }
 
     @AfterMethod
@@ -38,20 +36,5 @@ public class TestBase extends PageObject {
             Selenide.refresh();
             getWebDriver().manage().window().maximize();
         }
-    }
-
-    @Step("Вход в систему")
-    public void loginMethod() {
-        checkLoginInput();
-        sendLogin();
-        checkPasswordInput();
-        sendPassword();
-        checkLoginButton();
-    }
-
-    @Step("Разлогин")
-    public void logout() {
-        checkLogoutButton();
-        clickLogout();
     }
 }

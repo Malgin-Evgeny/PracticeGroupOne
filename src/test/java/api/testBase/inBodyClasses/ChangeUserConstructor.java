@@ -387,9 +387,4 @@ public class ChangeUserConstructor {
     public void setOgrn(String ogrn) {
         this.ogrn = ogrn;
     }
-
 }
-
-
-
-

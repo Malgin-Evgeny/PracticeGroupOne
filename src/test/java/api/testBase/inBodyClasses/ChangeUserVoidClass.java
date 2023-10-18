@@ -44,7 +44,6 @@ public class ChangeUserVoidClass {
             "  \"ogrn\": \"string\"\n" +
             "}";
 
-
     public  String getRequestBody() {
         return requestBody;
     }
@@ -123,4 +122,3 @@ public class ChangeUserVoidClass {
         return expextedBody;
     }
 }
-

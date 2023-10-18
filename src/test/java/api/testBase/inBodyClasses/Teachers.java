@@ -233,7 +233,6 @@ public class Teachers {
         public void setTeachingNow(boolean teachingNow) {
             this.teachingNow = teachingNow;
         }
-
     }
 
     public static class Photo {
@@ -304,5 +303,4 @@ public class Teachers {
             this.url = url;
         }
     }
-
 }

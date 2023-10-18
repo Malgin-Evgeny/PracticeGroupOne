@@ -5,9 +5,7 @@ import io.restassured.response.Response;
 
 import org.testng.annotations.BeforeMethod;
 
-
 import static io.restassured.RestAssured.given;
-
 
 public class MyToken {
     public static String URL = "https://backend.dev.learn.maxima.school";
@@ -46,7 +44,6 @@ public class MyToken {
                 .post(URL + "/auth/refresh?refresh-token="+refreshToken)
                 .then().statusCode(200);
     }
-
 
     public Header getHeader() {
         return new Header("Authorization", "Bearer " + token);
