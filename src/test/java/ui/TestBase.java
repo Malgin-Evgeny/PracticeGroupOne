@@ -1,22 +1,17 @@
 package ui;
 
 import com.codeborne.selenide.*;
-
 import io.qameta.allure.Step;
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-
 public class TestBase extends PageObject {
-    final String URL = "https://dev.learn.maxima.school/";
+    private final String URL = "https://dev.learn.maxima.school/";
     private final SelenideElement loginForm = $x("//div[@class=\"LoginForm_login-form__header__Ad3b9\"]");
     private final SelenideElement loginInput = $x("//input[@type='text' and contains(@class, 'MuiInputBase-input')]");
     private final SelenideElement passwordInput = $x("//input[@type='password']");
@@ -28,12 +23,12 @@ public class TestBase extends PageObject {
 
     @BeforeClass
     public static void setUp() {
-        Configuration.remote = "http://194.58.120.63:4444/wd/hub";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
         capabilities.setVersion("latest");
-        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("VNC", true);
         capabilities.setCapability("enableVideo", true);
+        Configuration.remote = "http://194.58.120.63:4444/wd/hub";
     }
 
     @BeforeMethod

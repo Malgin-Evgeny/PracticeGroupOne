@@ -8,7 +8,6 @@ import org.testng.Assert;
 import static com.codeborne.selenide.Selenide.$;
 
 public class PageObject {
-
     @Step("Ввод в строку")
     public void sendInLine(SelenideElement selenideElement, String string) {
         $(selenideElement).sendKeys(string);
@@ -21,7 +20,7 @@ public class PageObject {
     }
 
     @Step("Проверка видимости элемента")
-    public void searchElement(SelenideElement selenideElement){
+    public void searchElement(SelenideElement selenideElement) {
         Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
     }
 }
