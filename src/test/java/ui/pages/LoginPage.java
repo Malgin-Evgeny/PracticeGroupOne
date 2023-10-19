@@ -74,7 +74,7 @@ public class LoginPage extends TestBase {
         checkEngLang();
         clickLanguageButton();
         clickRuLanguage();
-        checkRuLang();
+        assertTrueRuLang();
     }
 
     @Step("Тестовый метод восстановить пароль")
@@ -162,7 +162,7 @@ public class LoginPage extends TestBase {
     }
 
     @Step("Проверка что сейчас русский язык")
-    public void checkRuLang() {
+    public void assertTrueRuLang() {
         searchElement(ruAuthorize);
     }
 
