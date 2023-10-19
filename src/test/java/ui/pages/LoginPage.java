@@ -87,7 +87,7 @@ public class LoginPage extends TestBase {
         searchElement(classWhite);
     }
 
-    @Step("Проверка наличия кнопки смены языка и нажатие на неё")
+    @Step("Нажатие на кнопку смены языка")
     public void checkVisibleLanguageButton() {
         click(languageButton);
     }
@@ -112,12 +112,12 @@ public class LoginPage extends TestBase {
         searchElement(enAuthorize);
     }
 
-    @Step("Найти и нажать элемент Забыли пароль?")
+    @Step("Нажать элемент Забыли пароль?")
     public void clickForgotPassword() {
         click(forgotPassword);
     }
 
-    @Step("Найти и кликнуть на строку ввода email")
+    @Step("Кликнуть на строку ввода email")
     public void findLineAndClickToInputEmail() {
         click(lineInputEmail);
     }

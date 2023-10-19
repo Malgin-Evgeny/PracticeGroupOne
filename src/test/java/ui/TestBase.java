@@ -3,11 +3,17 @@ package ui;
 import com.codeborne.selenide.*;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
+
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 
 public class TestBase extends PageObject {
     final String URL = "https://dev.learn.maxima.school/";
@@ -20,24 +26,33 @@ public class TestBase extends PageObject {
     private final String password = "783891";
     private final SelenideElement welcome = $x("//*[@class=\"TitleBase_title-base__n1Oxe\"]");
 
+    @BeforeClass
+    public static void setUp() {
+        Configuration.remote = "http://194.58.120.63:4444/wd/hub";
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("latest");
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+    }
+
     @BeforeMethod
     @Step("Открытие сайта и логин")
     public void openBrowserWithUrl() {
-        Configuration.browserSize = "maximized";
         open(URL);
         refresh();
         login();
     }
 
     @AfterMethod
-    @Step("закрыть браузер")
+    @Step("Закрыть браузер")
     public void closedBrowser() {
         closeWebDriver();
     }
 
     @Step("Перезагрузка страницы если элемент невидим")
     public void refresh() {
-        if (loginForm.exists()) {
+        if (loginForm.shouldBe(Condition.visible).isDisplayed()) {
             getWebDriver().manage().window().maximize();
         } else {
             Selenide.refresh();
@@ -50,11 +65,11 @@ public class TestBase extends PageObject {
         sendInLine(loginInput, login);
         sendInLine(passwordInput, password);
         click(loginButton);
-        searchElement(welcome);
     }
 
     @Step("Выход из системы")
     public void logout() {
         click(logoutButton);
+        searchElement(loginForm);
     }
 }
