@@ -51,13 +51,17 @@ public class TestBase extends PageObject {
 
     @Step("Вход в систему")
     public void login() {
+        searchElement(loginInput);
         sendInLine(loginInput, login);
+        searchElement(passwordInput);
         sendInLine(passwordInput, password);
+        searchElement(loginButton);
         click(loginButton);
     }
 
     @Step("Выход из системы")
     public void logout() {
+        searchElement(logoutButton);
         click(logoutButton);
         searchElement(loginForm);
     }

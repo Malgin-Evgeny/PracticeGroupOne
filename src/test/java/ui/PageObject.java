@@ -10,13 +10,11 @@ import static com.codeborne.selenide.Selenide.$;
 public class PageObject {
     @Step("Ввод в строку")
     public void sendInLine(SelenideElement selenideElement, String string) {
-        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
         $(selenideElement).sendKeys(string);
     }
 
     @Step("Нажать на элемент c проверкой его видимости")
     public void click(SelenideElement selenideElement) {
-        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
         selenideElement.click();
     }
 

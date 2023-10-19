@@ -35,18 +35,24 @@ public class LoginPage extends TestBase {
 
     @Step("Метод меняющий язык")
     public void changeLanguage() {
-        checkVisibleLanguageButton();
+        findLanguageButton();
+        clickLanguageButton();
+        findEngLanguage();
         clickEngLanguage();
         checkEngLang();
-        checkVisibleLanguageButton();
+        findLanguageButton();
+        clickLanguageButton();
+        findRuLanguage();
         clickRuLanguage();
         checkRuLang();
     }
 
     @Step("Метод восстановить пароль")
     public void recoverPassword() {
+        searchElement(forgotPassword);
         clickForgotPassword();
-        findLineAndClickToInputEmail();
+        searchElement(lineInputEmail);
+        clickInputEmail();
         sendEmail();
         findToRecoverPassword();
         clickRecoverPassword();
@@ -87,9 +93,19 @@ public class LoginPage extends TestBase {
         searchElement(classWhite);
     }
 
+    @Step("Поиск кнопки смены языка")
+    public void findLanguageButton() {
+        searchElement(languageButton);
+    }
+
     @Step("Нажатие на кнопку смены языка")
-    public void checkVisibleLanguageButton() {
+    public void clickLanguageButton() {
         click(languageButton);
+    }
+
+    @Step("Найти елемент En")
+    public void findEngLanguage() {
+        searchElement(enLang);
     }
 
     @Step("Выбрать в меню En")
@@ -97,7 +113,12 @@ public class LoginPage extends TestBase {
         click(enLang);
     }
 
-    @Step("Выбрать в меню En")
+    @Step("Найти елемент Ru")
+    public void findRuLanguage() {
+        searchElement(ruLang);
+    }
+
+    @Step("Выбрать в меню Ru")
     public void clickRuLanguage() {
         click(ruLang);
     }
@@ -118,7 +139,7 @@ public class LoginPage extends TestBase {
     }
 
     @Step("Кликнуть на строку ввода email")
-    public void findLineAndClickToInputEmail() {
+    public void clickInputEmail() {
         click(lineInputEmail);
     }
 
