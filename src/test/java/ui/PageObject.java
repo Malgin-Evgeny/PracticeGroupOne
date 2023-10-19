@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class PageObject {
     @Step("Ввод в строку")
     public void sendInLine(SelenideElement selenideElement, String string) {
+        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
         $(selenideElement).sendKeys(string);
     }
 
