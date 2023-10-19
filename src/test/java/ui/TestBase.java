@@ -12,6 +12,13 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class TestBase extends PageObject {
     final String URL = "https://dev.learn.maxima.school/";
     private final SelenideElement loginForm = $x("//div[@class=\"LoginForm_login-form__header__Ad3b9\"]");
+    private final SelenideElement loginInput = $x("//input[@type='text' and contains(@class, 'MuiInputBase-input')]");
+    private final SelenideElement passwordInput = $x("//input[@type='password']");
+    private final SelenideElement loginButton = $x("//button[contains(@class, 'MuiButton-containedPrimary') or contains(text(), 'Войти')]");
+    private final SelenideElement logoutButton = $x("//*[@data-testid=\"ExitToAppIcon\"]");
+    private final String login = "aqa_01";
+    private final String password = "783891";
+    private final SelenideElement welcome = $x("//*[@class=\"TitleBase_title-base__n1Oxe\"]");
 
     @BeforeMethod
     @Step("Открытие сайта и логин")
@@ -19,8 +26,7 @@ public class TestBase extends PageObject {
         Configuration.browserSize = "maximized";
         open(URL);
         refresh();
-        loginMethod();
-        assertLoginSuccess();
+        login();
     }
 
     @AfterMethod
@@ -31,7 +37,6 @@ public class TestBase extends PageObject {
 
     @Step("Перезагрузка страницы если элемент невидим")
     public void refresh() {
-        loginForm.shouldBe(Condition.visible);
         if (loginForm.exists()) {
             getWebDriver().manage().window().maximize();
         } else {
@@ -41,17 +46,15 @@ public class TestBase extends PageObject {
     }
 
     @Step("Вход в систему")
-    public void loginMethod() {
-        checkLoginInput();
-        sendLogin();
-        checkPasswordInput();
-        sendPassword();
-        checkLoginButton();
+    public void login() {
+        sendInLine(loginInput, login);
+        sendInLine(passwordInput, password);
+        click(loginButton);
+        searchElement(welcome);
     }
 
-    @Step("Разлогин")
+    @Step("Выход из системы")
     public void logout() {
-        checkLogoutButton();
-        clickLogout();
+        click(logoutButton);
     }
 }

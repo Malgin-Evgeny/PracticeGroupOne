@@ -38,6 +38,6 @@ public class LoginPageTest extends LoginPage {
     public void recoverPasswordTest() {
         logout();
         recoverPassword();
-        loginMethod();
+        login();
     }
 }
