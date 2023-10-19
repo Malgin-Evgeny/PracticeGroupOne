@@ -6,23 +6,22 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import java.util.HashMap;
+
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class TestBase extends PageObject {
-    private final String URL = "https://dev.learn.maxima.school/";
+    String URL = "https://dev.learn.maxima.school/";
     private final SelenideElement loginForm = $x("//div[@class=\"LoginForm_login-form__header__Ad3b9\"]");
-    private final SelenideElement loginInput = $x("//input[@type='text' and contains(@class, 'MuiInputBase-input')]");
-    private final SelenideElement passwordInput = $x("//input[@type='password']");
-    private final SelenideElement loginButton = $x("//button[contains(@class, 'MuiButton-containedPrimary') or contains(text(), 'Войти')]");
-    private final SelenideElement logoutButton = $x("//*[@data-testid=\"ExitToAppIcon\"]");
-    private final String login = "aqa_01";
-    private final String password = "783891";
 
     @BeforeClass
     public static void setUp() {
         Configuration.remote = "http://194.58.120.63:4444/wd/hub";
         Configuration.browser = "chrome";
+        Configuration.browserCapabilities.setCapability("selenoid:options", new HashMap<String, Object>() {{
+            put("enableVNC", true);
+        }});
     }
 
     @BeforeMethod
@@ -30,7 +29,6 @@ public class TestBase extends PageObject {
     public void openBrowserWithUrl() {
         open(URL);
         refresh();
-        login();
     }
 
     @AfterMethod
@@ -47,22 +45,5 @@ public class TestBase extends PageObject {
             Selenide.refresh();
             getWebDriver().manage().window().maximize();
         }
-    }
-
-    @Step("Вход в систему")
-    public void login() {
-        searchElement(loginInput);
-        sendInLine(loginInput, login);
-        searchElement(passwordInput);
-        sendInLine(passwordInput, password);
-        searchElement(loginButton);
-        click(loginButton);
-    }
-
-    @Step("Выход из системы")
-    public void logout() {
-        searchElement(logoutButton);
-        click(logoutButton);
-        searchElement(loginForm);
     }
 }
