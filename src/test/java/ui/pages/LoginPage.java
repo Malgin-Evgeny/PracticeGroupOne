@@ -87,49 +87,41 @@ public class LoginPage extends TestBase {
 
     @Step("Ввести логин")
     public void loginInput() {
-        searchElement(loginInput);
         sendInLine(loginInput, login);
     }
 
     @Step("Ввести пароль")
     public void passwordInput() {
-        searchElement(passwordInput);
         sendInLine(passwordInput, password);
     }
 
     @Step("Клик на кнопку логин")
     public void clickLoginButton() {
-        searchElement(loginButton);
         click(loginButton);
     }
 
     @Step("Клик на кнопку логаут")
     public void clickLogoutButton() {
-        searchElement(logoutButton);
         click(logoutButton);
     }
 
     @Step("Ввести неверный логин")
     public void loginInputFake() {
-        searchElement(loginInput);
         sendInLine(loginInput, loginFake);
     }
 
     @Step("Ввести неверный пароль")
     public void inputFakePassword() {
-        searchElement(passwordInput);
         sendInLine(passwordInput, passwordFake);
     }
 
     @Step("Сменить цвет")
     public void clickWhiteColorButton() {
-        searchElement(whiteButton);
         click(whiteButton);
     }
 
     @Step("Сменить цвет")
     public void clickBlackColorButton() {
-        searchElement(blackButton);
         click(blackButton);
     }
 
@@ -145,19 +137,16 @@ public class LoginPage extends TestBase {
 
     @Step("Нажатие на кнопку смены языка")
     public void clickLanguageButton() {
-        searchElement(languageButton);
         click(languageButton);
     }
 
     @Step("Выбрать в меню En")
     public void clickEngLanguage() {
-        searchElement(enLang);
         click(enLang);
     }
 
     @Step("Выбрать в меню Ru")
     public void clickRuLanguage() {
-        searchElement(ruLang);
         click(ruLang);
     }
 
@@ -173,13 +162,11 @@ public class LoginPage extends TestBase {
 
     @Step("Нажать элемент Забыли пароль?")
     public void clickForgotPassword() {
-        searchElement(forgotPassword);
         click(forgotPassword);
     }
 
     @Step("Кликнуть на строку ввода email")
     public void clickInputEmail() {
-        searchElement(lineInputEmail);
         click(lineInputEmail);
     }
 
@@ -190,7 +177,6 @@ public class LoginPage extends TestBase {
 
     @Step("Нажать на кнопку восстановить пароль")
     public void clickRecoverPassword() {
-        searchElement(recoverPasswordButton);
         click(recoverPasswordButton);
     }
 }

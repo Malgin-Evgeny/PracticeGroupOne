@@ -10,16 +10,22 @@ import static com.codeborne.selenide.Selenide.$;
 public class PageObject {
     @Step("Ввод в строку")
     public void sendInLine(SelenideElement selenideElement, String string) {
+        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
         $(selenideElement).sendKeys(string);
     }
 
-    @Step("Нажать на элемент c проверкой его видимости")
-    public void click(SelenideElement selenideElement) {
+    @Step("Нажать на элемент")
+    public void justClick(SelenideElement selenideElement) {
         selenideElement.click();
     }
 
     @Step("Проверка видимости элемента")
     public void searchElement(SelenideElement selenideElement) {
         Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
+    }
+    @Step("Проверка видимости элемента и клик")
+    public void click(SelenideElement selenideElement) {
+        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
+        selenideElement.click();
     }
 }
