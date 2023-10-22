@@ -1,5 +1,6 @@
 package api.tests;
 
+import api.helper.Specifications;
 import api.testBase.inBodyClasses.ArchiveBody;
 import api.testBase.inBodyClasses.ChangeUserVoidClass;
 import api.testBase.token.MyToken;
@@ -16,36 +17,35 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void getUsersRestControllerTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given().header(getHeader())
-                .get(URL + "/users")
-                .then()
-                .assertThat().statusCode(200);
+                .get("/users")
+                .then();
     }
 
     @Test
     public void putUserChangeTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given()
                 .header(getHeader())
                 .body(changeUserVoidClass.getRequestBody())
-                .header("Content-Type", "application/json")
-                .put(URL + "/users")
-                .then()
-                .statusCode(200);
-
+                .put("/users")
+                .then();
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given()
                 .header(getHeader())
                 .when()
-                .get(URL + "/users/315")
+                .get("/users/315")
                 .then()
-                .statusCode(200)
                 .body("id", equalTo(315))
                 .body("firstName", equalTo("Петр"));
     }
 
     @Test
     public void putUserResetPasswordTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given().header(getHeader())
-                .put(URL + "/users/315/reset-password")
+                .put("/users/315/reset-password")
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -57,59 +57,42 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void postUserUnbanTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given()
                 .header(getHeader())
-                .post(URL + "/users/315/unban")
+                .post("/users/315/unban")
                 .then()
-                .statusCode(200)
                 .log().all();
     }
 
     @Test
     public void postUserBanTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given()
                 .header(getHeader())
                 .post(URL + "/users/315/ban")
-                .then()
-                .statusCode(200);
+                .then();
     }
 
     @Test
     public void postUserArchiveTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given()
                 .header(getHeader())
                 .body(archiveBody.getRequestArchiveBody())
-                .header("Content-Type", "application/json")
-                .post(URL + "/users/315/archive")
-                .then()
-                .statusCode(200);
+                .post("/users/315/archive")
+                .then();
     }
-    /*@Test
-    public void postUserChangeActiveTest() {
-        given()
-                .header(getHeader())
-                .body("{\n" +
-                        "  \"ids\": [\n" +
-                        "    1,\n" +
-                        "    2,\n" +
-                        "    3\n" +
-                        "  ]\n" +
-                        "}")
-                .header("Content-Type", "application/json")
-                .post(URL + "/users/change-active")
-                .then().assertThat().statusCode(200);
 
-    }*/
     @Test
     public void getInfoForUserID() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given()
                 .header(getHeader())
-                .get(URL + "/users/315")
+                .get("/users/315")
                 .then()
-                .statusCode(200)
                 .body("id", equalTo(315))
                 .body("firstName", equalTo("Петр"))
                 .log().all();
     }
-
 }

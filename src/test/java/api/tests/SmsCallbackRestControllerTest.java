@@ -1,5 +1,6 @@
 package api.tests;
 
+import api.helper.Specifications;
 import api.testBase.token.MyToken;
 import org.testng.annotations.Test;
 
@@ -9,9 +10,10 @@ import static org.hamcrest.Matchers.equalTo;
 public class SmsCallbackRestControllerTest extends MyToken {
     @Test
     public void getSmsCallbackTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given().header(getHeader())
                 .when()
-                .get(URL+"/sms/callback")
+                .get("/sms/callback")
                 .then().log().all()
                 .assertThat()
                 .body(equalTo("100"));
@@ -19,9 +21,10 @@ public class SmsCallbackRestControllerTest extends MyToken {
 
     @Test
     public void postSmsCallbackTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
         given().header(getHeader())
                 .when()
-                .post(URL+"/sms/callback")
+                .post("/sms/callback")
                 .then().log().all()
                 .assertThat()
                 .body(equalTo("100"));
