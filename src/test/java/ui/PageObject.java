@@ -13,7 +13,6 @@ public class PageObject {
         Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
         $(selenideElement).sendKeys(string);
     }
-
     @Step("Нажать на элемент")
     public void justClick(SelenideElement selenideElement) {
         selenideElement.click();
@@ -23,6 +22,7 @@ public class PageObject {
     public void searchElement(SelenideElement selenideElement) {
         Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
     }
+
     @Step("Проверка видимости элемента и клик")
     public void click(SelenideElement selenideElement) {
         Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
