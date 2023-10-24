@@ -1,142 +1,182 @@
 package ui.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ui.TestBase;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage extends TestBase {
+    private final SelenideElement loginInput = $x("//input[@type='text' and contains(@class, 'MuiInputBase-input')]");
+    private final SelenideElement passwordInput = $x("//input[@type='password']");
+    private final SelenideElement loginButton = $x("//button[contains(@class, 'MuiButton-containedPrimary') or contains(text(), 'Войти')]");
+    private final SelenideElement logoutButton = $x("//*[@data-testid=\"ExitToAppIcon\"]");
     private final SelenideElement blackButton = $x("//button[@class='MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-1q60gj7']");
     private final SelenideElement whiteButton = $x("//button[@class='MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-qtyozs']");
     private final SelenideElement whiteColor = $x("//*[contains(@style,'background-color: rgb(248, 248, 248);')]\n");
     private final SelenideElement blackColor = $x("//*[contains(@style,'background-color: rgb(39, 39, 39);')]");
-    private final SelenideElement classWhite = $x("//*[@class='']");
     private final SelenideElement ruLang = $x("//*[@data-value=\"ru\"]");
     private final SelenideElement enLang = $x("//*[@data-value=\"en\"]");
     private final SelenideElement languageButton = $x("//*[@role=\"button\"]");
     private final SelenideElement enAuthorize = $x("//*[contains(text(), 'Authorize')]");
-    private final SelenideElement reAuthorize = $x("//*[contains(text(), 'Авторизация')]");
+    private final SelenideElement ruAuthorize = $x("//*[contains(text(), 'Авторизация')]");
     private final SelenideElement forgotPassword = $x("//button[contains(text(), 'Забыли пароль?')]");
     private final SelenideElement lineInputEmail = $x("//input[@type='text']");
     private final SelenideElement recoverPasswordButton = $x("//button[contains(text(), 'Востановить пароль')]");
-    private final String email = "exampleEmail@gmail.com";
+    String email = "exampleEmail@gmail.com";
+    String login = "aqa_01";
+    String password = "783891";
+    String loginFake = "aAqQaA_!&@#4";
+    String passwordFake = "1293128487128497124";
 
-    @Step("Метод сменяющий цвет")
-    public void changeColor() {
-        findWhiteColorButton();
-        clickWhiteColorButton();
-        findChangeWhiteToBlackColor();
-        findBlackColorButton();
-        clickBlackColorButton();
-        findChangeBlackToWhiteColor();
-        assertTrueCheckColorClass();
+    @Step("Тестовый метод Вход в систему")
+    public void login() {
+        loginInput();
+        passwordInput();
+        clickLoginButton();
+        searchElement(logoutButton);
     }
 
-    @Step("Метод меняющий язык")
+    @Step("Тестовый негативный метод Вход в систему")
+    public void loginNegative() {
+        loginInputFake();
+        passwordInput();
+        clickLoginButton();
+        searchElement(loginButton);
+    }
+
+    @Step("Тестовый негативный метод Вход в систему")
+    public void loginNegativePass() {
+        loginInput();
+        inputFakePassword();
+        clickLoginButton();
+        searchElement(loginButton);
+    }
+
+    @Step("Тестовый метод Выход из системы")
+    public void logout() {
+        clickLogoutButton();
+        searchElement(loginButton);
+    }
+
+    @Step("Тестовый метод сменяющий цвет")
+    public void changeColor() {
+        clickWhiteColorButton();
+        assertTrueCheckBlackColor();
+        clickBlackColorButton();
+        assertTrueCheckWhiteColor();
+    }
+
+    @Step("Тестовый метод меняющий язык")
     public void changeLanguage() {
-        checkVisibleLanguageButton();
+        clickLanguageButton();
         clickEngLanguage();
         checkEngLang();
-        checkVisibleLanguageButton();
+        clickLanguageButton();
         clickRuLanguage();
-        checkRuLang();
+        assertTrueRuLang();
     }
 
-    @Step("Метод восстановить пароль")
+    @Step("Тестовый метод восстановить пароль")
     public void recoverPassword() {
         clickForgotPassword();
-        findLineAndClickToInputEmail();
+        clickInputEmail();
         sendEmail();
-        findAndClickToRecoverPassword();
+        clickRecoverPassword();
     }
 
-    @Step("Проверка видимости кнопки смены цвета темы сайта")
-    public void findWhiteColorButton() {
-        Assert.assertTrue(whiteButton.shouldBe(Condition.visible).isDisplayed());
+    @Step("Ввести логин")
+    public void loginInput() {
+        sendInLine(loginInput, login);
     }
 
-    @Step("Проверка видимости кнопки смены цвета темы сайта")
-    public void findBlackColorButton() {
-        Assert.assertTrue(blackButton.shouldBe(Condition.visible).isDisplayed());
+    @Step("Ввести пароль")
+    public void passwordInput() {
+        sendInLine(passwordInput, password);
+    }
+
+    @Step("Клик на кнопку логин")
+    public void clickLoginButton() {
+        click(loginButton);
+    }
+
+    @Step("Клик на кнопку логаут")
+    public void clickLogoutButton() {
+        click(logoutButton);
+    }
+
+    @Step("Ввести неверный логин")
+    public void loginInputFake() {
+        sendInLine(loginInput, loginFake);
+    }
+
+    @Step("Ввести неверный пароль")
+    public void inputFakePassword() {
+        sendInLine(passwordInput, passwordFake);
     }
 
     @Step("Сменить цвет")
     public void clickWhiteColorButton() {
-        $(whiteButton).click();
+        click(whiteButton);
     }
 
     @Step("Сменить цвет")
     public void clickBlackColorButton() {
-        $(blackButton).click();
-    }
-
-    @Step("Поиск светлого цвета темы окна логина")
-    public void findChangeBlackToWhiteColor() {
-        Assert.assertTrue($(whiteColor).shouldBe(Condition.visible).isDisplayed());
-    }
-
-    @Step("Поиск тёмного цвета темы окна логина")
-    public void findChangeWhiteToBlackColor() {
-        Assert.assertTrue($(blackColor).shouldBe(Condition.visible).isDisplayed());
+        click(blackButton);
     }
 
     @Step("Проверка смены цвета фона страницы")
-    public void assertTrueCheckColorClass() {
-        Assert.assertTrue($(classWhite).shouldBe(Condition.visible).isDisplayed());
+    public void assertTrueCheckWhiteColor() {
+        searchElement(whiteColor);
     }
 
-    @Step("Проверка наличия кнопки смены языкаи нажатие на неё")
-    public void checkVisibleLanguageButton() {
-        Assert.assertTrue($(languageButton).shouldBe(Condition.visible).isDisplayed());
-        languageButton.click();
+    @Step("Проверка смены цвета фона страницы")
+    public void assertTrueCheckBlackColor() {
+        searchElement(blackColor);
+    }
+
+    @Step("Нажатие на кнопку смены языка")
+    public void clickLanguageButton() {
+        click(languageButton);
     }
 
     @Step("Выбрать в меню En")
     public void clickEngLanguage() {
-        Assert.assertTrue($(enLang).shouldBe(Condition.visible).isDisplayed());
-        enLang.click();
+        click(enLang);
     }
 
-    @Step("Выбрать в меню En")
+    @Step("Выбрать в меню Ru")
     public void clickRuLanguage() {
-        Assert.assertTrue($(ruLang).shouldBe(Condition.visible).isDisplayed());
-        ruLang.click();
+        click(ruLang);
     }
 
     @Step("Проверка что сейчас русский язык")
-    public void checkRuLang() {
-        Assert.assertTrue($(reAuthorize).shouldBe(Condition.visible).isDisplayed());
+    public void assertTrueRuLang() {
+        searchElement(ruAuthorize);
     }
 
     @Step("Проверка что сейчас английский язык")
     public void checkEngLang() {
-        Assert.assertTrue($(enAuthorize).shouldBe(Condition.visible).isDisplayed());
+        searchElement(enAuthorize);
     }
 
-    @Step("Найти и нажать элемент Забыли пароль?")
+    @Step("Нажать элемент Забыли пароль?")
     public void clickForgotPassword() {
-        Assert.assertTrue($(forgotPassword).shouldBe(Condition.visible).isDisplayed());
-        forgotPassword.click();
+        click(forgotPassword);
     }
 
-    @Step("Найти и кликнуть на строку ввода email")
-    public void findLineAndClickToInputEmail() {
-        Assert.assertTrue($(lineInputEmail).shouldBe(Condition.visible).isDisplayed());
-        lineInputEmail.click();
+    @Step("Кликнуть на строку ввода email")
+    public void clickInputEmail() {
+        click(lineInputEmail);
     }
 
     @Step("Ввести email")
     public void sendEmail() {
-        lineInputEmail.sendKeys(email);
+        sendInLine(lineInputEmail, email);
     }
 
-    @Step("Найти и нажать кнопку восстановить пароль")
-    public void findAndClickToRecoverPassword() {
-        Assert.assertTrue($(recoverPasswordButton).shouldBe(Condition.visible).isDisplayed());
-        recoverPasswordButton.click();
+    @Step("Нажать на кнопку восстановить пароль")
+    public void clickRecoverPassword() {
+        click(recoverPasswordButton);
     }
 }
