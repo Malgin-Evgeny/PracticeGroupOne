@@ -95,4 +95,25 @@ public class UsersRestControllerTest extends MyToken {
                 .body("firstName", equalTo("Петр"))
                 .log().all();
     }
+
+    @Test
+    public void getSearchListAllTeachers() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        given()
+                .header(getHeader())
+                .get("/users/teachers/info")
+                .then()
+                .log().all();
+    }
+
+    @Test
+    public void getSearchForTeachersId() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        given()
+                .header(getHeader())
+                .get("/users/teachers/317")
+                .then()
+                .body("id", equalTo(317))
+                .log().all();
+    }
 }
