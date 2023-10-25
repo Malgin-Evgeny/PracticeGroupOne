@@ -1,57 +1,49 @@
 package ui;
 
 import com.codeborne.selenide.*;
-
 import io.qameta.allure.Step;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+
+import java.util.HashMap;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class TestBase extends PageObject {
-    final String URL = "https://dev.learn.maxima.school/";
+    String URL = "https://dev.learn.maxima.school/";
     private final SelenideElement loginForm = $x("//div[@class=\"LoginForm_login-form__header__Ad3b9\"]");
+
+    @BeforeClass
+    public static void setUp() {
+        Configuration.remote = "http://194.58.120.63:4444/wd/hub";
+        Configuration.browser = "chrome";
+        Configuration.browserCapabilities.setCapability("selenoid:options", new HashMap<String, Object>() {{
+            put("enableVNC", true);
+        }});
+    }
 
     @BeforeMethod
     @Step("Открытие сайта и логин")
     public void openBrowserWithUrl() {
-        Configuration.browserSize = "maximized";
         open(URL);
         refresh();
-        loginMethod();
-        assertLoginSuccess();
     }
 
     @AfterMethod
-    @Step("закрыть браузер")
+    @Step("Закрыть браузер")
     public void closedBrowser() {
         closeWebDriver();
     }
 
     @Step("Перезагрузка страницы если элемент невидим")
     public void refresh() {
-        loginForm.shouldBe(Condition.visible);
-        if (loginForm.exists()) {
+        if (loginForm.shouldBe(Condition.visible).isDisplayed()) {
             getWebDriver().manage().window().maximize();
         } else {
             Selenide.refresh();
             getWebDriver().manage().window().maximize();
         }
-    }
-
-    @Step("Вход в систему")
-    public void loginMethod() {
-        checkLoginInput();
-        sendLogin();
-        checkPasswordInput();
-        sendPassword();
-        checkLoginButton();
-    }
-
-    @Step("Разлогин")
-    public void logout() {
-        checkLogoutButton();
-        clickLogout();
     }
 }
