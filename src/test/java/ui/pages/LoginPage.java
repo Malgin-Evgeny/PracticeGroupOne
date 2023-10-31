@@ -2,7 +2,7 @@ package ui.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import ui.TestBase;
+import ui.baseItems.TestBase;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -23,40 +23,28 @@ public class LoginPage extends TestBase {
     private final SelenideElement forgotPassword = $x("//button[contains(text(), 'Забыли пароль?')]");
     private final SelenideElement lineInputEmail = $x("//input[@type='text']");
     private final SelenideElement recoverPasswordButton = $x("//button[contains(text(), 'Востановить пароль')]");
-    String email = "exampleEmail@gmail.com";
-    String login = "aqa_01";
-    String password = "783891";
-    String loginFake = "aAqQaA_!&@#4";
-    String passwordFake = "1293128487128497124";
+    private final SelenideElement alert =$x("//*[@role=\"alert\"]");
 
     @Step("Тестовый метод Вход в систему")
-    public void login() {
-        loginInput();
-        passwordInput();
+    public void login(String login, String password) {
+        loginInput(login);
+        passwordInput(password);
         clickLoginButton();
-        searchElement(logoutButton);
+        assertVisible(logoutButton);
     }
 
     @Step("Тестовый негативный метод Вход в систему")
-    public void loginNegative() {
-        loginInputFake();
-        passwordInput();
+    public void loginNegativePass(String loginFake, String passwordFake) {
+        loginInputFake(loginFake);
+        inputFakePassword(passwordFake);
         clickLoginButton();
-        searchElement(loginButton);
-    }
-
-    @Step("Тестовый негативный метод Вход в систему")
-    public void loginNegativePass() {
-        loginInput();
-        inputFakePassword();
-        clickLoginButton();
-        searchElement(loginButton);
+        assertVisible(alert);
     }
 
     @Step("Тестовый метод Выход из системы")
     public void logout() {
         clickLogoutButton();
-        searchElement(loginButton);
+        assertVisible(loginButton);
     }
 
     @Step("Тестовый метод сменяющий цвет")
@@ -78,20 +66,20 @@ public class LoginPage extends TestBase {
     }
 
     @Step("Тестовый метод восстановить пароль")
-    public void recoverPassword() {
+    public void recoverPassword(String email) {
         clickForgotPassword();
         clickInputEmail();
-        sendEmail();
+        sendEmail(email);
         clickRecoverPassword();
     }
 
     @Step("Ввести логин")
-    public void loginInput() {
+    public void loginInput(String login) {
         sendInLine(loginInput, login);
     }
 
     @Step("Ввести пароль")
-    public void passwordInput() {
+    public void passwordInput(String password) {
         sendInLine(passwordInput, password);
     }
 
@@ -106,12 +94,12 @@ public class LoginPage extends TestBase {
     }
 
     @Step("Ввести неверный логин")
-    public void loginInputFake() {
+    public void loginInputFake(String loginFake) {
         sendInLine(loginInput, loginFake);
     }
 
     @Step("Ввести неверный пароль")
-    public void inputFakePassword() {
+    public void inputFakePassword(String passwordFake) {
         sendInLine(passwordInput, passwordFake);
     }
 
@@ -127,12 +115,12 @@ public class LoginPage extends TestBase {
 
     @Step("Проверка смены цвета фона страницы")
     public void assertTrueCheckWhiteColor() {
-        searchElement(whiteColor);
+        assertVisible(whiteColor);
     }
 
     @Step("Проверка смены цвета фона страницы")
     public void assertTrueCheckBlackColor() {
-        searchElement(blackColor);
+        assertVisible(blackColor);
     }
 
     @Step("Нажатие на кнопку смены языка")
@@ -152,12 +140,12 @@ public class LoginPage extends TestBase {
 
     @Step("Проверка что сейчас русский язык")
     public void assertTrueRuLang() {
-        searchElement(ruAuthorize);
+        assertVisible(ruAuthorize);
     }
 
     @Step("Проверка что сейчас английский язык")
     public void checkEngLang() {
-        searchElement(enAuthorize);
+        assertVisible(enAuthorize);
     }
 
     @Step("Нажать элемент Забыли пароль?")
@@ -171,7 +159,7 @@ public class LoginPage extends TestBase {
     }
 
     @Step("Ввести email")
-    public void sendEmail() {
+    public void sendEmail(String email) {
         sendInLine(lineInputEmail, email);
     }
 

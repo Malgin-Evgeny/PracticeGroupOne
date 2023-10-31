@@ -1,7 +1,11 @@
-package ui;
+package ui.baseItems;
 
-import com.codeborne.selenide.*;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -11,10 +15,7 @@ import java.util.HashMap;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class TestBase extends PageObject {
-    String URL = "https://dev.learn.maxima.school/";
-    private final SelenideElement loginForm = $x("//div[@class=\"LoginForm_login-form__header__Ad3b9\"]");
-
+public class TestBase {
     @BeforeClass
     public static void setUp() {
         Configuration.remote = "http://194.58.120.63:4444/wd/hub";
@@ -27,7 +28,7 @@ public class TestBase extends PageObject {
     @BeforeMethod
     @Step("Открытие сайта и логин")
     public void openBrowserWithUrl() {
-        open(URL);
+        open(HelpLocators.getURLmaxima());
         refresh();
     }
 
@@ -39,11 +40,29 @@ public class TestBase extends PageObject {
 
     @Step("Перезагрузка страницы если элемент невидим")
     public void refresh() {
-        if (loginForm.shouldBe(Condition.visible).isDisplayed()) {
+        if (HelpLocators.getLoginForm().shouldBe(Condition.visible).isDisplayed()) {
             getWebDriver().manage().window().maximize();
         } else {
             Selenide.refresh();
             getWebDriver().manage().window().maximize();
         }
     }
+
+    @Step("Ввод в строку")
+    public void sendInLine(SelenideElement selenideElement, String string) {
+        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
+        $(selenideElement).sendKeys(string);
+    }
+
+    @Step("Проверка видимости элемента")
+    public void assertVisible(SelenideElement selenideElement) {
+        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
+    }
+
+    @Step("Проверка видимости элемента и клик")
+    public void click(SelenideElement selenideElement) {
+        Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
+        selenideElement.click();
+    }
 }
+
