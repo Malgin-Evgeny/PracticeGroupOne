@@ -65,4 +65,3 @@ public class TestBase {
         selenideElement.click();
     }
 }
-
