@@ -25,64 +25,6 @@ public class LoginPage extends TestBase {
     private final SelenideElement recoverPasswordButton = $x("//button[contains(text(), 'Востановить пароль')]");
     private final SelenideElement alert =$x("//*[@role=\"alert\"]");
 
-    @Step("Тестовый метод Вход в систему")
-    public void login(String login, String password) {
-        loginInput(login);
-        passwordInput(password);
-        clickLoginButton();
-        assertVisible(logoutButton);
-    }
-
-    @Step("Тестовый негативный метод Вход в систему")
-    public void loginNegativePass(String loginFake, String passwordFake) {
-        loginInputFake(loginFake);
-        inputFakePassword(passwordFake);
-        clickLoginButton();
-        assertVisible(alert);
-    }
-
-    @Step("Тестовый метод Выход из системы")
-    public void logout() {
-        clickLogoutButton();
-        assertVisible(loginButton);
-    }
-
-    @Step("Тестовый метод сменяющий цвет")
-    public void changeColor() {
-        clickWhiteColorButton();
-        assertTrueCheckBlackColor();
-        clickBlackColorButton();
-        assertTrueCheckWhiteColor();
-    }
-
-    @Step("Тестовый метод меняющий язык")
-    public void changeLanguage() {
-        clickLanguageButton();
-        clickEngLanguage();
-        checkEngLang();
-        clickLanguageButton();
-        clickRuLanguage();
-        assertTrueRuLang();
-    }
-
-    @Step("Тестовый метод восстановить пароль")
-    public void recoverPassword(String email) {
-        clickForgotPassword();
-        clickInputEmail();
-        sendEmail(email);
-        clickRecoverPassword();
-    }
-
-    @Step("Ввести логин")
-    public void loginInput(String login) {
-        sendInLine(loginInput, login);
-    }
-
-    @Step("Ввести пароль")
-    public void passwordInput(String password) {
-        sendInLine(passwordInput, password);
-    }
-
     @Step("Клик на кнопку логин")
     public void clickLoginButton() {
         click(loginButton);
@@ -107,7 +49,6 @@ public class LoginPage extends TestBase {
     public void clickWhiteColorButton() {
         click(whiteButton);
     }
-
     @Step("Сменить цвет")
     public void clickBlackColorButton() {
         click(blackButton);
@@ -166,5 +107,52 @@ public class LoginPage extends TestBase {
     @Step("Нажать на кнопку восстановить пароль")
     public void clickRecoverPassword() {
         click(recoverPasswordButton);
+    }
+    @Step("Тестовый метод Вход в систему")
+    public void login(String login, String password) {
+        loginInput(loginInput, login);
+        passwordInput(passwordInput,password);
+        clickLoginButton();
+        assertVisible(logoutButton);
+    }
+
+    @Step("Тестовый негативный метод Вход в систему")
+    public void loginNegativePass(String loginFake, String passwordFake) {
+        loginInputFake(loginFake);
+        inputFakePassword(passwordFake);
+        clickLoginButton();
+        assertVisible(alert);
+    }
+
+    @Step("Тестовый метод Выход из системы")
+    public void logout() {
+        clickLogoutButton();
+        assertVisible(loginButton);
+    }
+
+    @Step("Тестовый метод сменяющий цвет")
+    public void changeColor() {
+        clickWhiteColorButton();
+        assertTrueCheckBlackColor();
+        clickBlackColorButton();
+        assertTrueCheckWhiteColor();
+    }
+
+    @Step("Тестовый метод меняющий язык")
+    public void changeLanguage() {
+        clickLanguageButton();
+        clickEngLanguage();
+        checkEngLang();
+        clickLanguageButton();
+        clickRuLanguage();
+        assertTrueRuLang();
+    }
+
+    @Step("Тестовый метод восстановить пароль")
+    public void recoverPassword(String email) {
+        clickForgotPassword();
+        clickInputEmail();
+        sendEmail(email);
+        clickRecoverPassword();
     }
 }

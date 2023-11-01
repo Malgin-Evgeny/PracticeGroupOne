@@ -2,26 +2,24 @@ package ui.tests.positive;
 
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
+import ui.baseItems.Credentials;
 import ui.pages.LoginPage;
 
 import static io.qameta.allure.SeverityLevel.NORMAL;
 @Epic("Проверка сайта MAXIMA")
 @Feature("Проверка функицонала страниц")
 public class LoginPageTest extends LoginPage {
-    String email = "exampleEmail@gmail.com";
-    String login = "aqa_01";
-    String password = "783891";
     @Test
     @Story("Проверка логина")
     @Severity(NORMAL)
     public void loginPageLoginTest() {
-        login(login,password);
+        login(Credentials.getLogin(),Credentials.getPassword());
     }
     @Test
     @Story("Проверка логина")
     @Severity(NORMAL)
     public void loginPageLogoutTest() {
-        login(login,password);
+        login(Credentials.getLogin(),Credentials.getPassword());
         logout();
     }
     @Test
@@ -42,7 +40,7 @@ public class LoginPageTest extends LoginPage {
     @Story("Проверка формы восстановления пароля")
     @Severity(NORMAL)
     public void LoginPageRecoverPasswordTest() {
-        recoverPassword(email);
-        login(login,password);
+        recoverPassword(Credentials.getEmail());
+        login(Credentials.getLogin(),Credentials.getPassword());
     }
 }
