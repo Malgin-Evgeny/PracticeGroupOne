@@ -64,4 +64,13 @@ public class TestBase {
         Assert.assertTrue(selenideElement.shouldBe(Condition.visible).isDisplayed());
         selenideElement.click();
     }
+    @Step("Ввести логин")
+    public void loginInput(SelenideElement loginInput,String login) {
+        sendInLine(loginInput, login);
+    }
+
+    @Step("Ввести пароль")
+    public void passwordInput(SelenideElement passwordInput, String password) {
+        sendInLine(passwordInput, password);
+    }
 }
