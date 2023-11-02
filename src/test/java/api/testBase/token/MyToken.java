@@ -46,8 +46,7 @@ public class MyToken {
                 .post(URL + "/auth/refresh?refresh-token="+refreshToken)
                 .then().statusCode(200);
     }
-
-
+    
     public Header getHeader() {
         return new Header("Authorization", "Bearer " + token);
     }
