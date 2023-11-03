@@ -2,7 +2,7 @@ package ui.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import ui.TestBase;
+import ui.baseItems.TestBase;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -23,40 +23,111 @@ public class LoginPage extends TestBase {
     private final SelenideElement forgotPassword = $x("//button[contains(text(), 'Забыли пароль?')]");
     private final SelenideElement lineInputEmail = $x("//input[@type='text']");
     private final SelenideElement recoverPasswordButton = $x("//button[contains(text(), 'Востановить пароль')]");
-    String email = "exampleEmail@gmail.com";
-    String login = "aqa_01";
-    String password = "783891";
-    String loginFake = "aAqQaA_!&@#4";
-    String passwordFake = "1293128487128497124";
+    private final SelenideElement alert =$x("//*[@role=\"alert\"]");
 
+    @Step("Клик на кнопку логин")
+    public void clickLoginButton() {
+        click(loginButton);
+    }
+
+    @Step("Клик на кнопку логаут")
+    public void clickLogoutButton() {
+        click(logoutButton);
+    }
+
+    @Step("Ввести неверный логин")
+    public void loginInputFake(String loginFake) {
+        sendInLine(loginInput, loginFake);
+    }
+
+    @Step("Ввести неверный пароль")
+    public void inputFakePassword(String passwordFake) {
+        sendInLine(passwordInput, passwordFake);
+    }
+
+    @Step("Сменить цвет")
+    public void clickWhiteColorButton() {
+        click(whiteButton);
+    }
+    @Step("Сменить цвет")
+    public void clickBlackColorButton() {
+        click(blackButton);
+    }
+
+    @Step("Проверка смены цвета фона страницы")
+    public void assertTrueCheckWhiteColor() {
+        assertVisible(whiteColor);
+    }
+
+    @Step("Проверка смены цвета фона страницы")
+    public void assertTrueCheckBlackColor() {
+        assertVisible(blackColor);
+    }
+
+    @Step("Нажатие на кнопку смены языка")
+    public void clickLanguageButton() {
+        click(languageButton);
+    }
+
+    @Step("Выбрать в меню En")
+    public void clickEngLanguage() {
+        click(enLang);
+    }
+
+    @Step("Выбрать в меню Ru")
+    public void clickRuLanguage() {
+        click(ruLang);
+    }
+
+    @Step("Проверка что сейчас русский язык")
+    public void assertTrueRuLang() {
+        assertVisible(ruAuthorize);
+    }
+
+    @Step("Проверка что сейчас английский язык")
+    public void checkEngLang() {
+        assertVisible(enAuthorize);
+    }
+
+    @Step("Нажать элемент Забыли пароль?")
+    public void clickForgotPassword() {
+        click(forgotPassword);
+    }
+
+    @Step("Кликнуть на строку ввода email")
+    public void clickInputEmail() {
+        click(lineInputEmail);
+    }
+
+    @Step("Ввести email")
+    public void sendEmail(String email) {
+        sendInLine(lineInputEmail, email);
+    }
+
+    @Step("Нажать на кнопку восстановить пароль")
+    public void clickRecoverPassword() {
+        click(recoverPasswordButton);
+    }
     @Step("Тестовый метод Вход в систему")
-    public void login() {
-        loginInput();
-        passwordInput();
+    public void login(String login, String password) {
+        loginInput(loginInput, login);
+        passwordInput(passwordInput,password);
         clickLoginButton();
-        searchElement(logoutButton);
+        assertVisible(logoutButton);
     }
 
     @Step("Тестовый негативный метод Вход в систему")
-    public void loginNegative() {
-        loginInputFake();
-        passwordInput();
+    public void loginNegativePass(String loginFake, String passwordFake) {
+        loginInputFake(loginFake);
+        inputFakePassword(passwordFake);
         clickLoginButton();
-        searchElement(loginButton);
-    }
-
-    @Step("Тестовый негативный метод Вход в систему")
-    public void loginNegativePass() {
-        loginInput();
-        inputFakePassword();
-        clickLoginButton();
-        searchElement(loginButton);
+        assertVisible(alert);
     }
 
     @Step("Тестовый метод Выход из системы")
     public void logout() {
         clickLogoutButton();
-        searchElement(loginButton);
+        assertVisible(loginButton);
     }
 
     @Step("Тестовый метод сменяющий цвет")
@@ -78,105 +149,10 @@ public class LoginPage extends TestBase {
     }
 
     @Step("Тестовый метод восстановить пароль")
-    public void recoverPassword() {
+    public void recoverPassword(String email) {
         clickForgotPassword();
         clickInputEmail();
-        sendEmail();
+        sendEmail(email);
         clickRecoverPassword();
-    }
-
-    @Step("Ввести логин")
-    public void loginInput() {
-        sendInLine(loginInput, login);
-    }
-
-    @Step("Ввести пароль")
-    public void passwordInput() {
-        sendInLine(passwordInput, password);
-    }
-
-    @Step("Клик на кнопку логин")
-    public void clickLoginButton() {
-        click(loginButton);
-    }
-
-    @Step("Клик на кнопку логаут")
-    public void clickLogoutButton() {
-        click(logoutButton);
-    }
-
-    @Step("Ввести неверный логин")
-    public void loginInputFake() {
-        sendInLine(loginInput, loginFake);
-    }
-
-    @Step("Ввести неверный пароль")
-    public void inputFakePassword() {
-        sendInLine(passwordInput, passwordFake);
-    }
-
-    @Step("Сменить цвет")
-    public void clickWhiteColorButton() {
-        click(whiteButton);
-    }
-
-    @Step("Сменить цвет")
-    public void clickBlackColorButton() {
-        click(blackButton);
-    }
-
-    @Step("Проверка смены цвета фона страницы")
-    public void assertTrueCheckWhiteColor() {
-        searchElement(whiteColor);
-    }
-
-    @Step("Проверка смены цвета фона страницы")
-    public void assertTrueCheckBlackColor() {
-        searchElement(blackColor);
-    }
-
-    @Step("Нажатие на кнопку смены языка")
-    public void clickLanguageButton() {
-        click(languageButton);
-    }
-
-    @Step("Выбрать в меню En")
-    public void clickEngLanguage() {
-        click(enLang);
-    }
-
-    @Step("Выбрать в меню Ru")
-    public void clickRuLanguage() {
-        click(ruLang);
-    }
-
-    @Step("Проверка что сейчас русский язык")
-    public void assertTrueRuLang() {
-        searchElement(ruAuthorize);
-    }
-
-    @Step("Проверка что сейчас английский язык")
-    public void checkEngLang() {
-        searchElement(enAuthorize);
-    }
-
-    @Step("Нажать элемент Забыли пароль?")
-    public void clickForgotPassword() {
-        click(forgotPassword);
-    }
-
-    @Step("Кликнуть на строку ввода email")
-    public void clickInputEmail() {
-        click(lineInputEmail);
-    }
-
-    @Step("Ввести email")
-    public void sendEmail() {
-        sendInLine(lineInputEmail, email);
-    }
-
-    @Step("Нажать на кнопку восстановить пароль")
-    public void clickRecoverPassword() {
-        click(recoverPasswordButton);
     }
 }
