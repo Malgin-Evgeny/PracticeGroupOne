@@ -1,49 +1,26 @@
 package api.tests;
 
-import api.helper.Specifications;
+import api.testBase.BaseMethod;
 import api.testBase.inBodyClasses.ArchiveBody;
-import api.testBase.inBodyClasses.ChangeUserVoidClass;
-import api.testBase.token.MyToken;
 
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
+import static api.helper.Specifications.installSpec;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class UsersRestControllerTest extends MyToken {
+public class UsersRestControllerTest extends BaseMethod {
     ArchiveBody archiveBody = new ArchiveBody();
-    ChangeUserVoidClass changeUserVoidClass = new ChangeUserVoidClass();
 
     @Test
     public void getUsersRestControllerTest() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
-        given().header(getHeader())
-                .get("/users")
-                .then();
-    }
-
-    @Test
-    public void putUserChangeTest() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
-        given()
-                .header(getHeader())
-                .body(changeUserVoidClass.getRequestBody())
-                .put("/users")
-                .then();
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
-        given()
-                .header(getHeader())
-                .when()
-                .get("/users/315")
-                .then()
-                .body("id", equalTo(315))
-                .body("firstName", equalTo("Петр"));
+        specGivenHeaderGetThen(URL,200,"/users");
     }
 
     @Test
     public void putUserResetPasswordTest() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        installSpec(URL,200);
         given().header(getHeader())
                 .put("/users/315/reset-password")
                 .then()
@@ -57,7 +34,7 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void postUserUnbanTest() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        installSpec(URL,200);
         given()
                 .header(getHeader())
                 .post("/users/315/unban")
@@ -67,7 +44,7 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void postUserBanTest() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        installSpec(URL,200);
         given()
                 .header(getHeader())
                 .post(URL + "/users/315/ban")
@@ -76,7 +53,7 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void postUserArchiveTest() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        installSpec(URL,200);
         given()
                 .header(getHeader())
                 .body(archiveBody.getRequestArchiveBody())
@@ -86,7 +63,7 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void getInfoForUserID() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        installSpec(URL,200);
         given()
                 .header(getHeader())
                 .get("/users/315")
@@ -98,7 +75,7 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void getSearchListAllTeachers() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        installSpec(URL,200);
         given()
                 .header(getHeader())
                 .get("/users/teachers/info")
@@ -108,7 +85,7 @@ public class UsersRestControllerTest extends MyToken {
 
     @Test
     public void getSearchForTeachersId() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(200));
+        installSpec(URL,200);
         given()
                 .header(getHeader())
                 .get("/users/teachers/317")

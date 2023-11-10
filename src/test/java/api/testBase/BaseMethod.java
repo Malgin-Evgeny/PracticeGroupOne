@@ -1,15 +1,16 @@
-package api.testBase.token;
+package api.testBase;
 
+import api.testBase.token.Register;
+import api.testBase.token.SuccessReg;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
-
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 
-
+import static api.helper.Specifications.installSpec;
 import static io.restassured.RestAssured.given;
 
-
-public class MyToken {
+public class BaseMethod {
     public static String URL = "https://backend.dev.learn.maxima.school";
     private String token;
     private String refreshToken;
@@ -34,7 +35,7 @@ public class MyToken {
         getToken();
         given()
                 .header(getHeader())
-                .post(URL + "/auth/validate?token="+token)
+                .post(URL + "/auth/validate?token=" + token)
                 .then().statusCode(200);
     }
 
@@ -43,12 +44,8 @@ public class MyToken {
         given()
                 .header(getHeader())
                 .when()
-                .post(URL + "/auth/refresh?refresh-token="+refreshToken)
+                .post(URL + "/auth/refresh?refresh-token=" + refreshToken)
                 .then().statusCode(200);
-    }
-    
-    public Header getHeader() {
-        return new Header("Authorization", "Bearer " + token);
     }
 
     @BeforeMethod()
@@ -56,5 +53,34 @@ public class MyToken {
         getToken();
         getRefreshToken();
         getValidateToken();
+    }
+
+    public Header getHeader() {
+        return new Header("Authorization", "Bearer " + token);
+    }
+
+    public void specGivenHeaderGetThen(String URL, int statusCode, String endPoint) {
+        installSpec(URL, statusCode);
+        given().header(getHeader())
+                .get(endPoint)
+                .then()
+                .log().all();
+    }
+
+    public void deleteCourseMethod() {
+        for (int i = 430; i <= 450; i++) {
+            try {
+                given()
+                        .header(getHeader())
+                        .when()
+                        .delete("/courses/" + i)
+                        .then().log().all();
+            } catch (AssertionError e) {
+                return;
+            }
+            finally {
+                Assert.assertEquals(1,1);
+            }
+        }
     }
 }
