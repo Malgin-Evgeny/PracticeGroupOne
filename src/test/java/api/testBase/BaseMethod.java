@@ -63,26 +63,25 @@ public class BaseMethod {
         installSpec(URL, statusCode);
         given().header(getHeader())
                 .get(endPoint)
-                .then()
-                .log().all()
+                .then().log().all()
                 .assertThat().statusCode(expectedStatus);
     }
 
-    public void putRequest(String URL, int statusCode, Object object, String endPoint, int expectedStatus) {
+    public void putRequest(String URL, int statusCode, Object body, String endPoint, int expectedStatus) {
         installSpec(URL, statusCode);
         given().header(getHeader())
-                .body(object)
+                .body(body)
                 .put(endPoint)
                 .then().log().all()
                 .assertThat().statusCode(expectedStatus);
     }
-    public void postRequest(String URL, int statusCode,Object object,String endpoint, int id, String endPoint,int expectedStatus ){
+    public void postRequest(String URL, int statusCode,Object body,String endpoint, int id, String endPoint,int expectedStatus ){
         installSpec(URL, statusCode);
         given().header(getHeader())
-                .body(object)
+                .body(body)
                 .post(URL + endpoint+id+endPoint)
                 .then().log().all()
-                .assertThat().statusCode(expectedStatus);;
+                .assertThat().statusCode(expectedStatus);
     }
 
     public void deleteCourseMethod() {
