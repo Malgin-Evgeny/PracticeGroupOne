@@ -15,7 +15,7 @@ public class UsersRestControllerTest extends BaseMethod {
 
     @Test
     public void getUsersRestControllerTest() {
-        specGivenHeaderGetThen(URL,200,"/users");
+        specGivenHeaderGetThenAssert200(URL,200,"/users");
     }
 
     @Test

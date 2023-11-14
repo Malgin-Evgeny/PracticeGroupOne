@@ -59,12 +59,13 @@ public class BaseMethod {
         return new Header("Authorization", "Bearer " + token);
     }
 
-    public void specGivenHeaderGetThen(String URL, int statusCode, String endPoint) {
+    public void specGivenHeaderGetThenAssert200(String URL, int statusCode, String endPoint) {
         installSpec(URL, statusCode);
         given().header(getHeader())
                 .get(endPoint)
                 .then()
-                .log().all();
+                .log().all()
+                .assertThat().statusCode(200);
     }
 
     public void deleteCourseMethod() {
@@ -77,9 +78,8 @@ public class BaseMethod {
                         .then().log().all();
             } catch (AssertionError e) {
                 return;
-            }
-            finally {
-                Assert.assertEquals(1,1);
+            } finally {
+                Assert.assertEquals(1, 1);
             }
         }
     }

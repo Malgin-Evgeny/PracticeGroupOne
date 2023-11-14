@@ -43,6 +43,6 @@ public class CoursesRestControllerTests extends BaseMethod {
         given().header(getHeader())
                 .body(course)
                 .put("/courses/" + courseId)
-                .then().log().all()
+                .then().log().all();
     }
 }
