@@ -24,4 +24,3 @@ public class Course {
         this.type = type;
     }
 }
-

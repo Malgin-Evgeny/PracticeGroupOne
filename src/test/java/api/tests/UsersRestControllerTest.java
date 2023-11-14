@@ -15,54 +15,32 @@ public class UsersRestControllerTest extends BaseMethod {
 
     @Test
     public void getUsersRestControllerTest() {
-        specGivenHeaderGetThenAssert200(URL,200,"/users");
+        getRequest(URL,200,"/users",200);
     }
 
     @Test
     public void putUserResetPasswordTest() {
-        installSpec(URL,200);
-        given().header(getHeader())
-                .put("/users/315/reset-password")
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .body("$", hasKey("login"))
-                .body("$", hasKey("password"))
-                .body("login", Matchers.not(emptyString()))
-                .body("password", Matchers.not(emptyString()));
+        putRequest(URL,200, archiveBody,"/users/315/reset-password",200);
     }
 
     @Test
     public void postUserUnbanTest() {
-        installSpec(URL,200);
-        given()
-                .header(getHeader())
-                .post("/users/315/unban")
-                .then()
-                .log().all();
+        postRequest(URL,200,archiveBody,"/users/",315,"/unban",200);
     }
 
     @Test
     public void postUserBanTest() {
-        installSpec(URL,200);
-        given()
-                .header(getHeader())
-                .post(URL + "/users/315/ban")
-                .then();
+        postRequest(URL,200,archiveBody,"/users/",315,"/ban",200);
     }
 
     @Test
     public void postUserArchiveTest() {
-        installSpec(URL,200);
-        given()
-                .header(getHeader())
-                .body(archiveBody.getRequestArchiveBody())
-                .post("/users/315/archive")
-                .then();
+        postRequest(URL,200,archiveBody.getRequestArchiveBody(),"/users/",315,"/archive",200);
     }
 
     @Test
     public void getInfoForUserID() {
+        getRequest(URL,200,"/users/315",200);
         installSpec(URL,200);
         given()
                 .header(getHeader())

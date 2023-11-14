@@ -59,17 +59,34 @@ public class BaseMethod {
         return new Header("Authorization", "Bearer " + token);
     }
 
-    public void specGivenHeaderGetThenAssert200(String URL, int statusCode, String endPoint) {
+    public void getRequest(String URL, int statusCode, String endPoint, int expectedStatus) {
         installSpec(URL, statusCode);
         given().header(getHeader())
                 .get(endPoint)
                 .then()
                 .log().all()
-                .assertThat().statusCode(200);
+                .assertThat().statusCode(expectedStatus);
+    }
+
+    public void putRequest(String URL, int statusCode, Object object, String endPoint, int expectedStatus) {
+        installSpec(URL, statusCode);
+        given().header(getHeader())
+                .body(object)
+                .put(endPoint)
+                .then().log().all()
+                .assertThat().statusCode(expectedStatus);
+    }
+    public void postRequest(String URL, int statusCode,Object object,String endpoint, int id, String endPoint,int expectedStatus ){
+        installSpec(URL, statusCode);
+        given().header(getHeader())
+                .body(object)
+                .post(URL + endpoint+id+endPoint)
+                .then().log().all()
+                .assertThat().statusCode(expectedStatus);;
     }
 
     public void deleteCourseMethod() {
-        for (int i = 430; i <= 450; i++) {
+        for (int i = 430; i <= 9999; i++) {
             try {
                 given()
                         .header(getHeader())
